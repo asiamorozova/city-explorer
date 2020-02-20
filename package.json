@@ -8,22 +8,21 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jest": "^25.1.0",
+    "superagent": "^5.2.2",
     "supertest": "^4.0.2"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --detectOpenHandles",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/asiamorozova/city-explorer.git"
-  },
-  "scripts": {
-    "test": "jest --detectOpenHandles",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
