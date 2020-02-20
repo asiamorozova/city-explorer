@@ -76,6 +76,31 @@ app.get("/trails", async (req, res, next) => {
   }
 });
 
+const getEvents = async (lat, lng) => {
+  const events = await request.get(
+    `http://api.eventful.com/json/events/search?app_key=${process.env.EVENT_API_KEY}&where=${lat},${lng}&within=25&page_size=20&page_number=1`
+  );
+  const formattedData = JSON.parse(events.text);
+  const realData = formattedData.events.event;
+
+  return realData.map(event => {
+    return {
+      name: event.title,
+      date: event.start_time,
+      address: event.venue_address,
+      link: event.venue_url
+    };
+  });
+};
+app.get("/events", async (req, res, next) => {
+  try {
+    const myEvent = await getEvents(lat, lng);
+    res.json(myEvent);
+  } catch (err) {
+    next(err);
+  }
+});
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log("listening on port", port);
